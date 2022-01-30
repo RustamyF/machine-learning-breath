@@ -17,33 +17,46 @@ class LinearRegression:
         plt.show()
 
     def reshape_features(self, X):
+        # if it is uni-variate linear regression
         if len(X.shape) == 1:
-            m=len(X)
+            m = len(X)
             X = np.stack((np.ones(m), X), axis=1)
         else:
-            m=X.shape[0]
+            m = X.shape[0]
             X = np.concatenate([np.ones((m, 1)), X], axis=1)
         return X
     def normalize_features(self, X):
+        # calculate the mean of features
         mu = np.mean(X, axis=0)
+        # calculate the standard deviation of features
         sigma = np.std(X, axis=0)
+        # normalize the features
         X_norm = (X - mu) / sigma
-
+        # return mean, standard deviation and normalized features
         return X_norm, mu, sigma
 
     def normal_equation_fit(self, X, y):
+        # add vector of ones for X0 (bias term)
         X = self.reshape_features(X)
+        # calculate the normal equation
         theta = np.dot(np.dot(np.linalg.inv(np.dot(X.T, X)), X.T), y)
         return theta
 
     def gradient_descent_fit(self, X, y):
+        # add vector of ones for X0 (bias term)
         X = self.reshape_features(X)
+        # m is the number of training sample
         m = y.size
+        # initialize the theta parameters. We start with a vector of zeros
         theta = np.zeros(X.shape[1])
         for i in range(self.iteration):
+            # calculate the linear regression hypothesis
             h_theta = np.dot(X, theta)
+            # calculate the cost
             cost = (1 / (2 * m)) * (np.sum(np.square(h_theta - y)))
+            # add the cost to the history
             self.cost_history.append(cost)
+            # change the value of theta using the learning rate and the gradient
             theta = theta - (self.learning_rate / m) * (h_theta - y).dot(X)
         return theta
 
@@ -68,7 +81,7 @@ class LinearRegression:
 
 # load univariete dataset
 print("************************* univariate data ************************")
-data = np.loadtxt('ex1data1.txt', delimiter=",")
+data = np.loadtxt('data/ex1data1.txt', delimiter=",")
 X = data[:, 0]
 y = data[:, 1]
 # 1. initialize linear regression class
@@ -86,7 +99,7 @@ print('theta using gradient descent method', theta)
 
 # load multivariate dataset
 print("************************* multivariate data ************************")
-data = np.loadtxt('ex1data2.txt', delimiter=",")
+data = np.loadtxt('data/ex1data2.txt', delimiter=",")
 X = data[:, 0:2]
 y = data[:, 2]
 
