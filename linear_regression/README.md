@@ -38,6 +38,9 @@ h<sub>&theta;</sub>(x) = &theta;<sub>o</sub> x + &theta;<sub>1</sub>x<sub>1</sub
  where in this equation, X is feature values and &theta; is the parameters of the linear regression hypothesis. 
  The main objective of a linear regression algorithm is to estimate the values of these &theta; using a learning algorithm.
  The vector of parameters &theta; has the following form.
+
+  ![theta](utils/theta.svg)
+  
  In this equation X<sub>0</sub> is the bias term and it is always equal to one. The following code snippet shows how to 
  take the X matrix and a vector of ones in its first column.
  
@@ -52,9 +55,6 @@ def reshape_features(self, X):
         X = np.concatenate([np.ones((m, 1)), X], axis=1)
     return X
 ```
- 
- 
-  ![theta](utils/theta.svg)
   
 ## Normal Equation
 One way to solve the values of &theta; is to use the normal equation shown bellow. It is a stright forward equation
