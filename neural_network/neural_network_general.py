@@ -39,8 +39,7 @@ class neuralNetwork:
         num_layers = len(layer_dims)  # number of layers in the network
         # loop over each layer
         for layer in range(1, num_layers):
-            parameters['W' + str(layer)] = np.random.randn(layer_dims[layer], layer_dims[layer - 1]) / np.sqrt(
-                layer_dims[layer - 1])  # *0.01
+            parameters['W' + str(layer)] = np.random.randn(layer_dims[layer], layer_dims[layer - 1]) / np.sqrt(layer_dims[layer - 1])  # *0.01
             parameters['b' + str(layer)] = np.zeros((layer_dims[layer], 1))
             # maker sure the shapes are correct
             assert (parameters['W' + str(layer)].shape == (layer_dims[layer], layer_dims[layer - 1]))
