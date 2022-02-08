@@ -7,7 +7,7 @@ state of the art machine learning frameworks, such as Scikit-learn, Tensorflow, 
 This repo presents the following machine learning models.
 - [Linear Regression](linear_regression)
 - [Logistic Regression](logistic_regression)
-- Neural Network
+- [Neural Network](neural_network)
 - Decision Tree
 - Random Forest
 - K Means

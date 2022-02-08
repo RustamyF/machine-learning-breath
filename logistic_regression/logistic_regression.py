@@ -86,7 +86,7 @@ class LogisticRegression:
 # load multivariate dataset
 print("************************* Example ************************")
 
-data = np.loadtxt('ex2data1.txt', delimiter=",")
+data = np.loadtxt('data/ex2data1.txt', delimiter=",")
 X = data[:, 0:2]
 y = data[:, 2]
 # 1. initialize linear regression class
