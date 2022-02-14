@@ -90,6 +90,17 @@ class neuralNetwork:
 
         return cost
 
+    def compute_cost_regularized(self, activation_layer, Y, parameters, lambd):
+        m = Y.shape[1]  # number of samples
+        cross_entropy_cost = self.compute_cost(activation_layer, Y)   # cross entropy cost.
+        num_layers = len(parameters) // 2  # number of layers in the neural network
+        L2_regularization_cost = 0
+        for l in range(1, num_layers):
+            L2_regularization_cost += np.sum(np.square(parameters['W' + str(l)]))
+        L2_regularization_cost = lambd/(2*m)*L2_regularization_cost
+        cost = cross_entropy_cost + L2_regularization_cost
+        return cost
+
     @staticmethod
     def relu_backward(drv_activation, cache):
         Z = cache
@@ -106,6 +117,20 @@ class neuralNetwork:
         dZ = drv_activation * s * (1 - s)
         assert (dZ.shape == Z.shape)
         return dZ
+
+
+    # def linear_backward_regularized(self, dZ, cache):
+    #     # Here cache is "linear_cache" containing (A_prev, W, b) coming from the forward
+    #     # propagation in the current layer
+    #     activation_prev, W, b = cache
+    #     m = activation_prev.shape[1]
+    #
+    #     dW = (1 / m) * np.dot(dZ, activation_prev.T)
+    #     db = (1 / m) * np.sum(dZ, axis=1, keepdims=True)
+    #     drv_activation_prev = np.dot(W.T, dZ)
+    #
+    #     return drv_activation_prev, dW, db
+
 
     @staticmethod
     def linear_backward(dZ, cache):
